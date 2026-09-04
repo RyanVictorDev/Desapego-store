@@ -14,4 +14,5 @@ export interface Product {
   images: string[]
   description: string
   featured?: boolean
+  available: boolean
 }

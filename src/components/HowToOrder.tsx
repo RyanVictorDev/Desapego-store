@@ -1,5 +1,3 @@
-import { INSTAGRAM_URL } from '../constants'
-
 const steps = [
   {
     number: '1',
@@ -8,13 +6,13 @@ const steps = [
   },
   {
     number: '2',
-    title: 'Chame no Direct',
-    text: 'Clique em "Quero essa no Direct" — a mensagem já vem pronta. É só colar e enviar no Instagram!',
+    title: 'Adicione ao carrinho',
+    text: 'Clique em "Adicionar ao carrinho" na peça desejada. Você pode montar seu pedido com várias peças.',
   },
   {
     number: '3',
-    title: 'Retire ou receba',
-    text: 'Combine a retirada em Maracanaú ou peça entrega. Simples, rápido e sem complicação.',
+    title: 'Finalize no WhatsApp',
+    text: 'Abra o carrinho, confira os itens e clique em "Finalizar no WhatsApp". A mensagem já vem pronta!',
   },
 ]
 
@@ -33,17 +31,6 @@ export default function HowToOrder() {
               <p className="step-text">{step.text}</p>
             </div>
           ))}
-        </div>
-
-        <div className="how-cta">
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-          >
-            Ir para o Instagram
-          </a>
         </div>
       </div>
     </section>

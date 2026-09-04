@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 import type { Product } from '../types/product'
 import { categoryLabels, formatPrice } from '../data/products'
-import { openInstagramOrder } from '../constants'
+import { useStore } from '../context/StoreContext'
 import ProductImage from './ProductImage'
 
 interface ProductModalProps {
   product: Product | null
   onClose: () => void
   onToast: (message: string) => void
+  onOpenCart: () => void
 }
 
-export default function ProductModal({ product, onClose, onToast }: ProductModalProps) {
+export default function ProductModal({ product, onClose, onToast, onOpenCart }: ProductModalProps) {
+  const { addToCart } = useStore()
   const [activeImage, setActiveImage] = useState(0)
 
   useEffect(() => {
@@ -35,9 +37,17 @@ export default function ProductModal({ product, onClose, onToast }: ProductModal
 
   if (!product) return null
 
-  const handleOrder = () => {
-    openInstagramOrder(product.name, product.size, product.price)
-    onToast('Mensagem copiada! Cole no Direct do Instagram ✨')
+  const handleAddToCart = () => {
+    const result = addToCart(product)
+    if (result === 'added') {
+      onToast('Peça adicionada ao carrinho ✨')
+      onClose()
+      onOpenCart()
+    } else if (result === 'duplicate') {
+      onToast('Essa peça já está no carrinho')
+    } else {
+      onToast('Esta peça não está disponível no momento')
+    }
   }
 
   return (
@@ -90,16 +100,26 @@ export default function ProductModal({ product, onClose, onToast }: ProductModal
             <div className="modal-tags">
               <span className="modal-tag">Tam. {product.size}</span>
               <span className="modal-tag">{product.condition}</span>
+              {!product.available && (
+                <span className="modal-tag modal-tag-unavailable">Indisponível</span>
+              )}
             </div>
 
             <p className="modal-description">{product.description}</p>
 
-            <button type="button" className="btn btn-gold" onClick={handleOrder}>
-              Quero essa no Direct ✨
+            <button
+              type="button"
+              className="btn btn-gold"
+              onClick={handleAddToCart}
+              disabled={!product.available}
+            >
+              {product.available ? 'Adicionar ao carrinho ✨' : 'Peça indisponível'}
             </button>
-            <p className="modal-note">
-              A mensagem será copiada — é só colar no Direct da loja!
-            </p>
+            {product.available && (
+              <p className="modal-note">
+                Adicione ao carrinho e finalize seu pedido pelo WhatsApp!
+              </p>
+            )}
           </div>
         </div>
       </div>

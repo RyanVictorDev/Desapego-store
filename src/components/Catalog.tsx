@@ -1,19 +1,17 @@
 import { useMemo, useState } from 'react'
 import type { Category, Product } from '../types/product'
-import {
-  allCategories,
-  allSizes,
-  categoryLabels,
-  products,
-} from '../data/products'
+import { allCategories, allSizes, categoryLabels } from '../data/products'
+import { useStore } from '../context/StoreContext'
 import ProductCard from './ProductCard'
 import ProductModal from './ProductModal'
 
 interface CatalogProps {
   onToast: (message: string) => void
+  onOpenCart: () => void
 }
 
-export default function Catalog({ onToast }: CatalogProps) {
+export default function Catalog({ onToast, onOpenCart }: CatalogProps) {
+  const { products } = useStore()
   const [category, setCategory] = useState<Category | 'all'>('all')
   const [size, setSize] = useState<string | 'all'>('all')
   const [selected, setSelected] = useState<Product | null>(null)
@@ -24,7 +22,7 @@ export default function Catalog({ onToast }: CatalogProps) {
       const matchSize = size === 'all' || p.size === size
       return matchCategory && matchSize
     })
-  }, [category, size])
+  }, [products, category, size])
 
   return (
     <section className="section" id="pecas">
@@ -32,7 +30,7 @@ export default function Catalog({ onToast }: CatalogProps) {
         <header className="catalog-header">
           <p className="section-label">Catálogo</p>
           <h2 className="section-title">Peças disponíveis</h2>
-          <p>Escolha sua favorita e garanta pelo Instagram Direct</p>
+          <p>Escolha suas favoritas, adicione ao carrinho e finalize no WhatsApp</p>
         </header>
 
         <div className="filters" role="group" aria-label="Filtros do catálogo">
@@ -100,6 +98,7 @@ export default function Catalog({ onToast }: CatalogProps) {
         product={selected}
         onClose={() => setSelected(null)}
         onToast={onToast}
+        onOpenCart={onOpenCart}
       />
     </section>
   )

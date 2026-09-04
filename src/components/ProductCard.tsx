@@ -11,13 +11,18 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
   return (
     <button
       type="button"
-      className="product-card"
+      className={`product-card ${!product.available ? 'unavailable' : ''}`}
       onClick={() => onClick(product)}
       aria-label={`Ver detalhes de ${product.name}`}
     >
       <div className="product-card-image">
         <ProductImage src={product.images[0]} alt={product.name} />
-        {product.featured && <span className="product-badge">Destaque</span>}
+        {product.featured && product.available && (
+          <span className="product-badge">Destaque</span>
+        )}
+        {!product.available && (
+          <span className="product-badge product-badge-unavailable">Indisponível</span>
+        )}
       </div>
       <div className="product-card-body">
         <h3 className="product-card-name">{product.name}</h3>
@@ -28,7 +33,9 @@ export default function ProductCard({ product, onClick }: ProductCardProps) {
         </div>
         <div className="product-card-footer">
           <span className="product-card-price">{formatPrice(product.price)}</span>
-          <span className="product-card-cta">Ver detalhes</span>
+          <span className="product-card-cta">
+            {product.available ? 'Ver detalhes' : 'Esgotado'}
+          </span>
         </div>
       </div>
     </button>

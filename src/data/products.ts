@@ -19,6 +19,7 @@ export const products: Product[] = [
     condition: 'semi nova',
     price: 35,
     featured: true,
+    available: true,
     images: productImages['1'],
     description:
       'Vestido midi com estampa floral delicada, tecido leve e caimento perfeito. Ideal para o dia a dia ou um passeio especial.',
@@ -30,6 +31,7 @@ export const products: Product[] = [
     size: 'P',
     condition: 'ótimo estado',
     price: 18,
+    available: true,
     images: productImages['2'],
     description:
       'Blusa cropped em linho natural, cor off-white. Combina com tudo e é super confortável no calor.',
@@ -42,6 +44,7 @@ export const products: Product[] = [
     condition: 'semi nova',
     price: 42,
     featured: true,
+    available: false,
     images: productImages['3'],
     description:
       'Calça wide leg na cor caramelo, cintura alta e tecido fluido. Peça coringa para montar looks elegantes.',
@@ -53,6 +56,7 @@ export const products: Product[] = [
     size: 'G',
     condition: 'ótimo estado',
     price: 48,
+    available: true,
     images: productImages['4'],
     description:
       'Jaqueta jeans oversized com lavagem clássica. Perfeita para sobrepor looks casuais com estilo.',
@@ -64,6 +68,7 @@ export const products: Product[] = [
     size: 'P',
     condition: 'como nova',
     price: 28,
+    available: false,
     images: productImages['5'],
     description:
       'Vestido preto tubo, tamanho justo e versátil. Peça essencial que nunca sai de moda.',
@@ -75,6 +80,7 @@ export const products: Product[] = [
     size: 'M',
     condition: 'semi nova',
     price: 22,
+    available: true,
     images: productImages['6'],
     description:
       'Blusa de seda com estampa geométrica suave. Toque sofisticado para o guarda-roupa.',
@@ -86,6 +92,7 @@ export const products: Product[] = [
     size: 'M',
     condition: 'ótimo estado',
     price: 15,
+    available: true,
     images: productImages['7'],
     description:
       'Short jeans com detalhe destroyed na barra. Casual e despojado para o verão.',
@@ -97,6 +104,7 @@ export const products: Product[] = [
     size: 'P',
     condition: 'semi nova',
     price: 38,
+    available: true,
     images: productImages['8'],
     description:
       'Mom jeans azul médio, cintura alta e modelagem confortável. Clássico atemporal.',
@@ -109,6 +117,7 @@ export const products: Product[] = [
     condition: 'semi nova',
     price: 55,
     featured: true,
+    available: false,
     images: productImages['9'],
     description:
       'Jaqueta biker em couro sintético preto. Peça statement para elevar qualquer produção.',
@@ -120,6 +129,7 @@ export const products: Product[] = [
     size: 'G',
     condition: 'ótimo estado',
     price: 45,
+    available: true,
     images: productImages['10'],
     description:
       'Vestido longo com listras verticais, visual alongado e elegante. Ótimo para eventos.',
@@ -131,6 +141,7 @@ export const products: Product[] = [
     size: 'P',
     condition: 'como nova',
     price: 10,
+    available: true,
     images: productImages['11'],
     description:
       'Regata básica em algodão, cor neutra. Peça coringa com preço imbatível.',
@@ -142,6 +153,7 @@ export const products: Product[] = [
     size: 'U',
     condition: 'como nova',
     price: 12,
+    available: true,
     images: productImages['12'],
     description:
       'Cinto fino dourado com fivela delicada. Acessório que transforma looks simples.',

@@ -1,14 +1,21 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { INSTAGRAM_HANDLE, INSTAGRAM_URL } from '../constants'
+import { useStore } from '../context/StoreContext'
 
 const navLinks = [
-  { href: '#pecas', label: 'Peças' },
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#como-pedir', label: 'Como pedir' },
-  { href: '#contato', label: 'Contato' },
+  { href: '/#pecas', label: 'Peças' },
+  { href: '/#sobre', label: 'Sobre' },
+  { href: '/#como-pedir', label: 'Como pedir' },
+  { href: '/#contato', label: 'Contato' },
 ]
 
-export default function Header() {
+interface HeaderProps {
+  onCartClick: () => void
+}
+
+export default function Header({ onCartClick }: HeaderProps) {
+  const { cartCount } = useStore()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -31,9 +38,9 @@ export default function Header() {
     <>
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
         <div className="container header-inner">
-          <a href="#" className="header-logo" aria-label="lojinha DESAPEGOS — início">
+          <Link to="/" className="header-logo" aria-label="lojinha DESAPEGOS — início">
             <img src="/logo.png" alt="Logo lojinha DESAPEGOS" />
-          </a>
+          </Link>
 
           <nav className="nav-desktop" aria-label="Navegação principal">
             {navLinks.map((link) => (
@@ -49,19 +56,60 @@ export default function Header() {
             >
               {INSTAGRAM_HANDLE}
             </a>
+            <button
+              type="button"
+              className="cart-button"
+              onClick={onCartClick}
+              aria-label={`Abrir carrinho${cartCount > 0 ? `, ${cartCount} ${cartCount === 1 ? 'item' : 'itens'}` : ''}`}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M6 6h15l-1.5 9h-12L6 6z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <path d="M6 6L5 3H2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <circle cx="9.5" cy="19" r="1.5" fill="currentColor" />
+                <circle cx="17.5" cy="19" r="1.5" fill="currentColor" />
+              </svg>
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+            </button>
           </nav>
 
-          <button
-            type="button"
-            className={`menu-toggle ${menuOpen ? 'open' : ''}`}
-            aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((o) => !o)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+          <div className="header-actions-mobile">
+            <button
+              type="button"
+              className="cart-button"
+              onClick={onCartClick}
+              aria-label={`Abrir carrinho${cartCount > 0 ? `, ${cartCount} ${cartCount === 1 ? 'item' : 'itens'}` : ''}`}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M6 6h15l-1.5 9h-12L6 6z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <path d="M6 6L5 3H2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <circle cx="9.5" cy="19" r="1.5" fill="currentColor" />
+                <circle cx="17.5" cy="19" r="1.5" fill="currentColor" />
+              </svg>
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+            </button>
+
+            <button
+              type="button"
+              className={`menu-toggle ${menuOpen ? 'open' : ''}`}
+              aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((o) => !o)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
         </div>
       </header>
 

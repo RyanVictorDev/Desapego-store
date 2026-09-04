@@ -1,14 +1,11 @@
 import { useCallback, useState } from 'react'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import Benefits from './components/Benefits'
-import Catalog from './components/Catalog'
-import About from './components/About'
-import HowToOrder from './components/HowToOrder'
-import Footer from './components/Footer'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { StoreProvider } from './context/StoreContext'
+import Storefront from './pages/Storefront'
+import Admin from './pages/Admin'
 import './styles.css'
 
-function App() {
+function AppContent() {
   const [toast, setToast] = useState('')
   const [toastVisible, setToastVisible] = useState(false)
 
@@ -20,20 +17,25 @@ function App() {
 
   return (
     <>
-      <Header />
-      <main>
-        <Hero />
-        <Benefits />
-        <Catalog onToast={showToast} />
-        <About />
-        <HowToOrder />
-      </main>
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Storefront onToast={showToast} />} />
+        <Route path="/admin" element={<Admin onToast={showToast} />} />
+      </Routes>
 
       <div className={`toast ${toastVisible ? 'visible' : ''}`} role="status" aria-live="polite">
         {toast}
       </div>
     </>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <StoreProvider>
+        <AppContent />
+      </StoreProvider>
+    </BrowserRouter>
   )
 }
 
